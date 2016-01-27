@@ -6,7 +6,7 @@
             var self = this;
 
             this.get = function () {
-                return "I came from an ES5 service build with Babel";
+                return "I came from a service built in ES5 and ran through Babel";
             };
         }
 

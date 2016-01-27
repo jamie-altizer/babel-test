@@ -3,7 +3,8 @@ var gulp = require('gulp'),
     babel = require('gulp-babel'),
     server = require('gulp-server-livereload'),
     sequence = require('run-sequence'),
-    concat = require('gulp-concat');
+    concat = require('gulp-concat'),
+    watch = require('gulp-watch');
 
 
 var Files = {
@@ -12,16 +13,18 @@ var Files = {
 };
 Files.all = Files.es6.concat(Files.es5);
 
-gulp.task('babel', function () {
+function run_babel () {
     return gulp.src(Files.all)
             .pipe(plumber())
             .pipe(babel())
             .pipe(concat('babel-app.js'))
             .pipe(gulp.dest('./www/'));
-});
+}
+
+gulp.task('babel', run_babel);
 
 gulp.task('watch', function () {
-    gulp.watch(Files.all, ['babel']);
+    watch(Files.all, run_babel);
 });
 
 gulp.task('server', function () {
